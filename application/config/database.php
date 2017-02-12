@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-//$active_group = 'master'; // Not needed, MY_Model.php handles it
+$active_group = 'master';
 $query_builder = TRUE;
 
 /*
