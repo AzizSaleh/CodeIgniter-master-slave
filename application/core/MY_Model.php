@@ -23,60 +23,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class MY_Model extends CI_Model
 {
-	/**
-	 * Master DB object
-	 *
-	 * @var CI_DB_mysqli_driver
-	 */
-	public $master;
+    /**
+     * Master DB object
+     *
+     * @var CI_DB_mysqli_driver
+     */
+    public $master;
 
-	/**
-	 * Slave DB object
-	 *
-	 * @var CI_DB_mysqli_driver
-	 */
-	public $slave;
+    /**
+     * Slave DB object
+     *
+     * @var CI_DB_mysqli_driver|boolean
+     */
+    public $slave = false;
 
-	/**
-	 * Load master/slave objects, set it to master by default
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->master = $this->load->database('master', TRUE);
-		$this->slave = $this->load->database('slave', TRUE);
-		$this->set_master();
-	}
+    /**
+     * Use slave
+     *
+     * @var boolean
+     */
+    public $use_slave;
 
-	/**
-	 * Set master alias
-	 */
-	public function master()
-	{
-		$this->set_master();
-	}
+    /**
+     * Load master/slave objects, set it to master by default
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->master = $this->load->database('master', TRUE);
 
-	/**
-	 * Set DB handler to master
-	 */
-	public function set_master()
-	{
-		$this->db = $this->master;
-	}
+        $this->config->load('database');
+        $this->use_slave = $this->config->item('use_slave');
+        if ($this->use_slave) {
+            $this->slave = $this->load->database('slave', TRUE);
+        }
+        $this->set_master();
+    }
 
-	/**
-	 * Set slave alias
-	 */
-	public function slave()
-	{
-		$this->set_slave();
-	}
+    /**
+     * Set master alias
+     */
+    public function master()
+    {
+        $this->set_master();
+    }
 
-	/**
-	 * Set DB handler to slave
-	 */
-	public function set_slave()
-	{
-		$this->db = $this->slave;
-	}
+    /**
+     * Set DB handler to master
+     */
+    public function set_master()
+    {
+        $this->db = $this->master;
+    }
+
+    /**
+     * Set slave alias
+     */
+    public function slave()
+    {
+        $this->set_slave();
+    }
+
+    /**
+     * Set DB handler to slave
+     */
+    public function set_slave()
+    {
+        if (!$this->use_slave) {
+            throw new Exception('Slave access is disabled');
+        }
+
+        $this->db = $this->slave;
+    }
 }

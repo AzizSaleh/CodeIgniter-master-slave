@@ -23,21 +23,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Model_Users extends MY_Model
 {
-	/**
-	 * Read from slave DB
-	 */
-	public function read_example()
-	{
-		$this->slave();
-		// Do read queries
-	}
+    /**
+     * Read from slave DB
+     */
+    public function read_example()
+    {
+        $this->slave();
+        // Do read queries
+    }
 
-	/**
-	 * Write to master DB
-	 */
-	public function write_example()
-	{
-		$this->master();
-		// Do write examples
-	}
+    /**
+     * Write to master DB
+     */
+    public function write_example()
+    {
+        $this->master();
+        // Do write examples
+    }
 }

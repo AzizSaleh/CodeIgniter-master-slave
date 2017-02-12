@@ -23,15 +23,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Member extends CI_Controller 
 {
-	/**
-	 * Example controller
-	 *
-	 * @access    /index.php/member/query_example
-	 */
-	public function query_example()
-	{
-		$this->load->model('model_users');
-		$this->model_users->read_example();
-		echo 'Done';
-	}
+    /**
+     * Example controller
+     *
+     * @access    /index.php/member/query_example
+     */
+    public function query_example()
+    {
+        $this->load->model('model_users');
+        $this->model_users->read_example();
+        echo 'Done';
+    }
 }
