@@ -14,6 +14,8 @@ $config['use_slave'] = false;
 
 # How to use in models
 
+First your models have to extend `MY_Model` instead of `CI_Model`, without this this will not work. See the example `application/models/model_users.php` for usage.
+
 In the models you can specify usage by doing either of these methods:
 
 ```
